@@ -10,5 +10,10 @@
   <%= @task.content %>
 </p>
 
+<p>
+  <strong>Created_at:</strong>
+  <%= @task.created_at %>
+</p>
+
 <%= link_to 'Edit', edit_task_path(@task), id: "edit-task" %> |
 <%= link_to 'Back', root_path, id: "back" %>
