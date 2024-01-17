@@ -1,0 +1,21 @@
+<h1>New Task Page</h1>
+<% if @task.errors.any? %>
+  <div id="error_explanation">
+
+    <ul>
+    <% @task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @task, local: true do |form| %>
+  <%= form.label :title, "Title" %><br>
+  <%= form.text_field :title %><br>
+  <%= form.label :content, "Content" %><br>
+  <%= form.text_area :content %><br>
+  <%= form.submit "Create Task", id: "create-task" %><br>
+  <!-- ↑ root_path書かなくてもcreateアクションが呼び出される -->
+  <%= link_to "Back", root_path, id: "back" %><br>
+<% end %>
