@@ -28,8 +28,8 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
     if @task.update(task_params)
-      flash[:notice] =  "Task was successfully update."
-      redirect_to root_path
+      flash[:notice] =  "Task was successfully updated."
+      redirect_to task_path(@task)
     else
       render :edit
     end
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.destroy(params[:id])
-    flash[:notice] =  "Task was successfully destroy."
+    flash[:notice] =  "Task was successfully destroyed."
     redirect_to root_path
   end
 

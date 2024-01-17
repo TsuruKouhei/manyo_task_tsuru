@@ -5,7 +5,10 @@ on:
     branches-ignore:
       - master
       - main
-
+permissions:
+  contents: read
+  issues: write
+  
 jobs:
   build:
 
