@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+    models:
+      task: タスク
+    attributes:
+      task:
+        title: タイトル
+
+    errors:
+      models:
+        task:
+          attributes:
+            title:
+              blank: "タイトルを入力してください"
+            content:
+              blank: "内容を入力してください"
