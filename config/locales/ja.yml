@@ -27,6 +27,10 @@ ja:
     link:
       back: "戻る"
       edit: "編集"
+  navigation:
+    tasks: 
+      index: "タスク一覧"
+      new: "タスクを登録する"
   flash:
     tasks:
       create_success: "タスクを登録しました"
