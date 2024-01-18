@@ -1,4 +1,4 @@
-<h1>New Task Page</h1>
+<h1><%= t("tasks.title.new")%></h1>
 <% if @task.errors.any? %>
   <div id="error_explanation">
 
@@ -11,11 +11,11 @@
 <% end %>
 
 <%= form_with model: @task, local: true do |form| %>
-  <%= form.label :title, "Title" %><br>
+  <%= form.label :title, t("activerecord.attributes.task.title") %><br>
   <%= form.text_field :title %><br>
-  <%= form.label :content, "Content" %><br>
+  <%= form.label :content, t("activerecord.attributes.task.content") %><br>
   <%= form.text_area :content %><br>
-  <%= form.submit "Create Task", id: "create-task" %><br>
+  <%= form.submit t("helpers.submit.create"), id: "create-task" %><br>
   <!-- ↑ root_path書かなくてもcreateアクションが呼び出される -->
-  <%= link_to "Back", root_path, id: "back" %><br>
+  <%= link_to t("tasks.link.back"), root_path, id: "back" %><br>
 <% end %>
