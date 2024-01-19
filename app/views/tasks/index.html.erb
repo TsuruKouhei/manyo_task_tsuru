@@ -1,0 +1,25 @@
+<h1><%= t('tasks.title.index')%></h1>
+<table>
+  <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.task.title')%></th>
+      <th><%= t('activerecord.attributes.task.content')%></th>
+      <th><%= t('activerecord.attributes.task.created_at')%></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td><%= task.created_at %></td>
+        <td>
+          <%= link_to t('tasks.show'), task_path(task), class: "show-task" %>
+          <%= link_to t('tasks.edit'), edit_task_path(task), class: "edit-task" %>
+          <%= link_to t('tasks.destroy'), task_path(task), method: :delete, data: { confirm: t("confirmations.delete_task") }, class: "destroy-task" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @tasks %>

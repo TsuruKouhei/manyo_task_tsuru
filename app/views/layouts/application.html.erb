@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <nav>
+      <ul>
+        <li><%= link_to t('navigation.tasks.index'), root_path, id: 'tasks-index' %></li>
+        <li><%= link_to t('navigation.tasks.new'), new_task_path, id: 'new-task' %></li>
+      </ul>
+    </nav>
+
+    <% flash.each do |key, message| %>
+      <div class="flash <%= key %>">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

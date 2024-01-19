@@ -1,0 +1,27 @@
+<h1><%= t("tasks.title.edit")%></h1>
+<% if @task.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+    <% @task.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_with model: @task, local: true do |form| %>
+  <div class="field">
+    <%= form.label :title, t('activerecord.attributes.task.title') %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content, t('activerecord.attributes.task.content') %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit t("helpers.submit.update"), id: "update-task" %>
+  </div>
+<% end %>
+
+<%= link_to t("tasks.link.back"), root_path, id: "back" %>
