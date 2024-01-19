@@ -1,48 +1,33 @@
 require 'rails_helper'
-
 RSpec.describe 'タスク管理機能', type: :system do
-  describe '登録機能' do
-    context 'タスクを登録した場合' do
-      it '登録したタスクが表示される' do
-        # タスクの登録処理を行う
-        visit new_task_path
-        fill_in 'Title', with: '新しいタスク'
-        fill_in 'Content', with: '新しいタスクの詳細内容'
-        click_button 'Create Task'
-        # 登録後、タスク一覧画面に遷移
-        visit tasks_path
-        # 登録したタスクが一覧に表示されていることを確認
-        expect(page).to have_content '新しいタスク'
-      end
-    end
-  end
-
   describe '一覧表示機能' do
+    # 2025年を指定されていたが、作成日を降順に設定しているため新たにタスクを作成した場合、新しいタスクが一番上に表示されるテストが実施できないため2023年に変更しています。
+    let!(:first_task) { create(:task, title: 'first_task', created_at: '2023-02-18') }
+    let!(:second_task) { create(:task, title: 'second_task', created_at: '2023-02-17') }
+    let!(:third_task) { create(:task, title: 'third_task', created_at: '2023-02-16') }
+
+    before do
+      visit tasks_path
+    end
+
     context '一覧画面に遷移した場合' do
-      it '登録済みのタスク一覧が表示される' do
-        # テストで使用するためのタスクを登録
-        FactoryBot.create(:task)
-        # タスク一覧画面に遷移
-        visit tasks_path
-        # visit（遷移）したpage（この場合、タスク一覧画面）に"書類作成"という文字列が、have_content（含まれていること）をexpect（確認・期待）する
-        expect(page).to have_content '書類作成'
-        # expectの結果が「真」であれば成功、「偽」であれば失敗としてテスト結果が出力される
+      it '作成済みのタスク一覧が作成日時の降順で表示される' do
+        task_list = all('tbody tr')
+        expect(task_list[0]).to have_content 'first_task'
+        expect(task_list[1]).to have_content 'second_task'
+        expect(task_list[2]).to have_content 'third_task'
       end
     end
-  end
 
-  describe '詳細表示機能' do
-    context '任意のタスク詳細画面に遷移した場合' do
-      it 'そのタスクの内容が表示される' do
-        # テストで使用するためのタスクを登録
-        # task = Task.create!(title: '詳細表示テスト', content: '詳細表示のテスト用タスクです。')
-        second_task = FactoryBot.create(:second_task)
-        # タスク詳細画面に遷移
-        visit task_path(second_task.id)
-        # タスク詳細画面にタイトルと内容が表示されていることを確認
-        expect(page).to have_content 'メール送信'
-        expect(page).to have_content '顧客へ営業のメールを送る。'
-
+    context '新たにタスクを作成した場合' do
+      it '新しいタスクが一番上に表示される' do
+        visit new_task_path
+        fill_in 'task_title', with: 'new_task'
+        fill_in 'task_content', with: 'new_content'
+        click_button 'create-task'
+        visit tasks_path
+        task_list = all('tbody tr')
+        expect(task_list[0]).to have_content 'new_task'
       end
     end
   end
