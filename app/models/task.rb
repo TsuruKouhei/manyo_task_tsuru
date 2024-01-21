@@ -17,4 +17,13 @@ class Task < ApplicationRecord
 
   # 優先度でソート
   scope :sort_by_priority, -> { order(priority: :desc, created_at: :desc) }
+
+  # タイトルとステータスによる検索
+  scope :search_by_title_and_status, -> (title, status) {
+    query = all
+    query = query.where("title LIKE ?", "%#{title}%") if title.present?
+    query = query.where(status: status) if status.present?
+    query
+  }
+  
 end
