@@ -13,8 +13,8 @@ class Task < ApplicationRecord
   scope :search_by_status, -> (status) { where(status: status) if status.present? }
 
   # 期限日でソート
-  scope :sort_by_deadline, -> { order(deadline_on: :asc) }
+  scope :sort_by_deadline, -> { order(deadline_on: :asc, created_at: :desc) }
 
   # 優先度でソート
-  scope :sort_by_priority, -> { order(priority: :desc) }
+  scope :sort_by_priority, -> { order(priority: :desc, created_at: :desc) }
 end
