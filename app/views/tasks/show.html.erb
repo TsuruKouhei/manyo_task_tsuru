@@ -15,5 +15,20 @@
   <%= @task.created_at %>
 </p>
 
+<p>
+  <strong>終了期限</strong>
+  <%= @task.deadline_on %>
+</p>
+
+<p>
+  <strong>優先度</strong>
+  <%= @task.priority %>
+</p>
+
+<p>
+  <strong>ステータス</strong>
+  <%= @task.status %>
+</p>
+
 <%= link_to t("tasks.link.edit"), edit_task_path(@task), id: "edit-task" %> |
 <%= link_to t("tasks.link.back"), root_path, id: "back" %>

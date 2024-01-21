@@ -19,6 +19,21 @@
     <%= form.text_area :content %>
   </div>
 
+  <div class="field">
+    <%= form.label :deadline_on, "終了期限" %>
+    <%= form.date_field :deadline_on %>
+  </div>
+
+  <div class="field">
+    <%= form.label :priority, "優先度" %>
+    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status, "ステータス" %>
+    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
+  </div>
+  
   <div class="actions">
     <%= form.submit t("helpers.submit.update"), id: "update-task" %>
   </div>

@@ -5,7 +5,7 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
     context 'タスクのタイトルが空文字の場合' do
       it 'バリデーションに失敗する' do
-        task = Task.create(title: '', content: '企画書を作成する。')
+        task = Task.create(title: '', content: '企画書を作成する。', deadline_on: "2024-01-19", priority: "低", status: "未着手")
         expect(task).not_to be_valid
       end
     end
