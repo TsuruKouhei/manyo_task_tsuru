@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
     #@tasks = Task.all.order(created_at: :desc)にすると終了期限、優先度ソートが効かない
     @tasks = Task.all.sort_by_deadline if params[:sort_deadline_on]
     @tasks = Task.all.sort_by_priority if params[:sort_priority]
@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def new
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:notice] = t('flash.tasks.create_success')
       redirect_to root_path
@@ -32,11 +32,11 @@ class TasksController < ApplicationController
   end
 
   def edit
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     if @task.update(task_params)
       flash[:notice] = t('flash.tasks.create_update')
       redirect_to task_path(@task)
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.destroy(params[:id])
+    @task = current_user.tasks.destroy(params[:id])
     flash[:notice] = t('flash.tasks.create_destroy')
     redirect_to root_path
   end

@@ -10,18 +10,22 @@
   </head>
 
   <body>
-    <nav>
-      <ul>
-        <li><%= link_to t('navigation.tasks.index'), root_path, id: 'tasks-index' %></li>
-        <li><%= link_to t('navigation.tasks.new'), new_task_path, id: 'new-task' %></li>
-      </ul>
-    </nav>
-
     <% flash.each do |key, message| %>
       <div class="flash <%= key %>">
         <%= message %>
       </div>
     <% end %>
+    
+    <% if logged_in? %>
+      <%= link_to t('navigation.tasks.index'), root_path, id: 'tasks-index' %><br>
+      <%= link_to t('navigation.tasks.new'), new_task_path, id: 'new-task' %><br>
+      <%= link_to "アカウント設定", user_path(current_user.id), id: "account-setting" %><br>
+      <%= link_to "ログアウト", session_path(current_user.id), method: :delete, id: "sign-out" %>
+    <% else %>
+      <%= link_to "アカウント登録", new_user_path, id: 'sign-up' %><br>
+      <%= link_to "ログイン", new_session_path, id: 'sign-in' %><br>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
