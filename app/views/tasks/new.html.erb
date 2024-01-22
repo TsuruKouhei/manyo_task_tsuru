@@ -13,8 +13,19 @@
 <%= form_with model: @task, local: true do |form| %>
   <%= form.label :title, t("activerecord.attributes.task.title") %><br>
   <%= form.text_field :title %><br>
+
   <%= form.label :content, t("activerecord.attributes.task.content") %><br>
   <%= form.text_area :content %><br>
+
+  <%= form.label :deadline_on, "終了期限" %><br>
+  <%= form.date_field :deadline_on %><br>
+
+  <%= form.label :priority, "優先度" %><br>
+  <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, include_blank: true %><br>
+
+  <%= form.label :status, "ステータス" %><br>
+  <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %><br>
+
   <%= form.submit t("helpers.submit.create"), id: "create-task" %><br>
   <!-- ↑ root_path書かなくてもcreateアクションが呼び出される -->
   <%= link_to t("tasks.link.back"), root_path, id: "back" %><br>

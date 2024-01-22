@@ -1,6 +1,16 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.order(created_at: :desc).page(params[:page]).per(10)
+    @tasks = Task.all.order(created_at: :desc)
+    #@tasks = Task.all.order(created_at: :desc)にすると終了期限、優先度ソートが効かない
+    @tasks = Task.all.sort_by_deadline if params[:sort_deadline_on]
+    @tasks = Task.all.sort_by_priority if params[:sort_priority]
+
+    if params[:search].present?
+      @tasks = @tasks.search_by_title(params[:search][:title])
+      @tasks = @tasks.search_by_status(params[:search][:status])
+    end
+
+    @tasks = @tasks.page(params[:page]).per(10)
   end
 
   def show
@@ -48,6 +58,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content)
+      params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
     end
 end
