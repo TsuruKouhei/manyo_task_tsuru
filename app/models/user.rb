@@ -9,4 +9,16 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
 
   has_many :tasks, dependent: :destroy
+
+  before_destroy :ensure_at_least_one_admin_remains
+  before_update :ensure_at_least_one_admin_remains
+  
+  private
+  
+  def ensure_at_least_one_admin_remains
+    if User.where(admin: true).count == 1 && self.admin?
+      errors.add(:base, '管理者が0人になるため削除できません')
+      throw(:abort)
+    end
+  end
 end

@@ -1,7 +1,9 @@
 class TasksController < ApplicationController
+  skip_before_action :login_required, only: [:new, :create]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
+
   def index
     @tasks = current_user.tasks.order(created_at: :desc)
-    #@tasks = Task.all.order(created_at: :desc)にすると終了期限、優先度ソートが効かない
     @tasks = Task.all.sort_by_deadline if params[:sort_deadline_on]
     @tasks = Task.all.sort_by_priority if params[:sort_priority]
 

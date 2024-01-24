@@ -1,0 +1,44 @@
+<h1>ユーザ編集</h1>
+<%= form_with(model: [:admin, @user], local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> があります:</h2>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation, "パスワード（確認）" %>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :admin, "管理者権限" %>
+    <%= form.check_box :admin %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "更新する" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', admin_users_path %>

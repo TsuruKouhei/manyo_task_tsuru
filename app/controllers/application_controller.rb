@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
       redirect_to new_session_path
     end 
   end
+
+  def check_admin
+    unless current_user&.admin?
+      redirect_to root_path, alert: '管理者以外アクセスできません'
+    end
+  end
 end

@@ -16,6 +16,11 @@
       </div>
     <% end %>
     
+    <% if current_user&.admin? %>
+      <%= link_to 'ユーザ一覧', admin_users_path, id: 'users-index' %><br>
+      <%= link_to 'ユーザを登録する', new_admin_user_path, id: 'add-user' %><br>
+    <% end %>
+
     <% if logged_in? %>
       <%= link_to t('navigation.tasks.index'), root_path, id: 'tasks-index' %><br>
       <%= link_to t('navigation.tasks.new'), new_task_path, id: 'new-task' %><br>
