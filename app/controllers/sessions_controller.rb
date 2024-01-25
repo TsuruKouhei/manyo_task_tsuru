@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
+  before_action :redirect_logged_in_user, only: [:new]
+
   
   def create
     user = User.find_by(email: params[:session][:email].downcase)
@@ -17,6 +19,14 @@ class SessionsController < ApplicationController
     session.delete(:user_id)
     flash[:notice] = 'ログアウトしました'
     redirect_to new_session_path
+  end
+
+  private
+
+  def redirect_logged_in_user
+    if logged_in?
+      redirect_to tasks_path, alert: 'ログアウトしてください'
+    end
   end
   
 end

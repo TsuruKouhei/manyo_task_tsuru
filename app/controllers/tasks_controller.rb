@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
+
 
   def index
     @tasks = current_user.tasks.order(created_at: :desc)
@@ -61,5 +63,11 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
+    end
+
+    def correct_user
+      unless current_user?(@task.user)
+        redirect_to tasks_path, alert: 'アクセス権限がありません'
+      end
     end
 end
