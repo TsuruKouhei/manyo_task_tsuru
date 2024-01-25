@@ -26,6 +26,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
+    
     if @user.update(user_params)
       redirect_to admin_users_url, notice: 'ユーザを更新しました'
     else
