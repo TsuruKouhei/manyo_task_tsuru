@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       redirect_to user_path, notice: t('flush_messege.models.user.update')
-      flash[:notice] = "ユーザを更新しました"
+      flash[:notice] = "アカウントを更新しました"
     else
       render :edit
     end
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in(@user)
       redirect_to tasks_path, notice: t('flush_messege.models.user.update')
-      flash[:notice] = "ユーザを登録しました"
+      flash[:notice] = "アカウントを登録しました"
     else
       render :new
     end

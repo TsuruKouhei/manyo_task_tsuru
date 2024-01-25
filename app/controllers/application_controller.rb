@@ -16,4 +16,5 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, alert: '管理者以外アクセスできません'
     end
   end
+
 end

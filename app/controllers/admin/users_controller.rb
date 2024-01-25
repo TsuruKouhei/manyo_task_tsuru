@@ -42,7 +42,6 @@ class Admin::UsersController < ApplicationController
       redirect_to admin_users_url, alert: @user.errors.full_messages.to_sentence
     end
   end
-  
 
   private
     def set_user
@@ -54,9 +53,15 @@ class Admin::UsersController < ApplicationController
     end
 
     def redirect_logged_in_user
-      if logged_in?
+      unless current_user&.admin?
         redirect_to tasks_path, alert: 'ログアウトしてください'
       end
     end
-  
+
+    def check_admin
+      unless current_user&.admin?
+        redirect_to root_path, alert: '管理者以外アクセスできません'
+      end
+    end
+
 end
