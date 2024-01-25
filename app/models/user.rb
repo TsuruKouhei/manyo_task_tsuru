@@ -11,14 +11,21 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
   before_destroy :ensure_at_least_one_admin_remains
-  before_update :ensure_at_least_one_admin_remains
+  validate :ensure_at_least_one_admin_remains_on_update, on: :update
   
   private
-  
   def ensure_at_least_one_admin_remains
     if User.where(admin: true).count == 1 && self.admin?
       errors.add(:base, '管理者が0人になるため削除できません')
       throw(:abort)
     end
   end
+
+  def ensure_at_least_one_admin_remains_on_update
+    if User.where(admin: true).count == 1 && self.admin? && self.admin_changed?
+      errors.add(:base, '管理者が0人になるため権限を変更できません')
+      throw(:abort)
+    end
+  end
+
 end

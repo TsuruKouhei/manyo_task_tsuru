@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     unless current_user
       flash[:notice] = "ログインしてください"
       redirect_to new_session_path
-    end 
+    end
   end
 
   def check_admin
