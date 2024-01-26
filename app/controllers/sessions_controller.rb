@@ -30,5 +30,4 @@ class SessionsController < ApplicationController
       redirect_to tasks_path, alert: 'ログアウトしてください'
     end
   end
-  
 end
