@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_logged_in_user, only: [:new]
 
   def edit
   end
@@ -51,4 +52,9 @@ class UsersController < ApplicationController
     redirect_to current_user unless current_user?(@user)
   end
 
+  def redirect_logged_in_user
+    if logged_in?
+      redirect_to tasks_path, alert: 'ログアウトしてください'
+    end
+  end
 end
