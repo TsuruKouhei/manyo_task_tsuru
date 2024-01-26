@@ -60,7 +60,7 @@ class Admin::UsersController < ApplicationController
 
     def check_admin
       unless current_user&.admin?
-        redirect_to root_path, alert: '管理者以外アクセスできません'
+        redirect_to tasks_path, alert: '管理者以外アクセスできません'
       end
     end
 
