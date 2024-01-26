@@ -4,7 +4,7 @@ class Admin::UsersController < ApplicationController
   before_action :redirect_logged_in_user, only: [:new]
 
   def index
-    @users = User.all
+    @users = User.includes(:tasks).all
   end
 
   def show
