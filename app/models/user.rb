@@ -9,6 +9,7 @@ class User < ApplicationRecord
   before_validation { email.downcase! }
 
   has_many :tasks, dependent: :destroy
+  has_many :labels
 
   # before_destroy :ensure_at_least_one_admin_remains
   # validate :ensure_at_least_one_admin_remains_on_update, on: :update

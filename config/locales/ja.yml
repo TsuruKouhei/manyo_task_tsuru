@@ -15,7 +15,8 @@ ja:
         email: "メールアドレス"
         password: "パスワード"
         password_confirmation: "パスワード（確認）"
-
+      label:
+        name: "名前"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
