@@ -24,6 +24,8 @@
     <% if logged_in? %>
       <%= link_to t('navigation.tasks.index'), root_path, id: 'tasks-index' %><br>
       <%= link_to t('navigation.tasks.new'), new_task_path, id: 'new-task' %><br>
+      <%= link_to 'ラベル一覧', labels_path, id: 'labels-index' %><br>
+      <%= link_to 'ラベルを登録する', new_label_path, id: 'new-label' %><br>
       <%= link_to "アカウント設定", user_path(current_user.id), id: "account-setting" %><br>
       <%= link_to "ログアウト", session_path(current_user.id), method: :delete, id: "sign-out" %>
     <% else %>

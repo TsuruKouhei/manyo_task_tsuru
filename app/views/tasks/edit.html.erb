@@ -33,7 +33,15 @@
     <%= form.label :status, "ステータス" %>
     <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
   </div>
-  
+
+  <div class="field">
+    <%= form.label :label_ids, "ラベル" %><br>
+    <% Label.all.each do |label| %>
+      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label.id, @task.labels.include?(label) %>
+      <%= label.name %><br>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= form.submit t("helpers.submit.update"), id: "update-task" %>
   </div>

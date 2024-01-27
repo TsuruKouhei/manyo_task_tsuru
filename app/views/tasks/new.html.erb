@@ -26,6 +26,14 @@
   <%= form.label :status, "ステータス" %><br>
   <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %><br>
 
+    <div class="labels">
+    <%= form.label :label_ids, "ラベル" %><br>
+    <% Label.all.each do |label| %>
+      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label.id, false %>
+      <%= label.name %><br>
+    <% end %>
+  </div>
+
   <%= form.submit t("helpers.submit.create"), id: "create-task" %><br>
   <!-- ↑ root_path書かなくてもcreateアクションが呼び出される -->
   <%= link_to t("tasks.link.back"), root_path, id: "back" %><br>

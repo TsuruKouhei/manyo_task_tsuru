@@ -1,0 +1,14 @@
+<h1 id="label-edit-page">ラベル編集ページ</h1>
+
+<%= form_with model: @label, local: true do |form| %>
+  <div class="field">
+    <%= form.label :name, "名前", id: "label-name" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "更新する", id: "update-label" %>
+  </div>
+<% end %>
+
+<%= link_to '戻る', labels_path, id: 'back' %>

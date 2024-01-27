@@ -1,0 +1,12 @@
+<h1 id="label-registration-page">ラベル登録ページ</h1>
+
+<%= form_with model: @label, local: true do |form| %>
+  <div class="field">
+    <%= form.label :name, "名前", id: "label-name" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "登録する", id: "submit-label" %>
+  </div>
+<% end %>

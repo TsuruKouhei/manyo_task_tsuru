@@ -10,6 +10,11 @@
     <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
   </div>
 
+    <div class="field">
+    <%= form.label :label_id, "ラベル" %>
+    <%= form.select :label_id, Label.all.map { |l| [l.name, l.id] }, include_blank: true %>
+  </div>
+
   <div class="actions">
     <%= form.submit "検索", id: "search_task"%>
   </div>
