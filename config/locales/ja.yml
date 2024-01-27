@@ -10,6 +10,11 @@ ja:
         deadline_on: 終了期限
         priority: 優先度
         status: ステータス
+      user:
+        name: "名前"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "パスワード（確認）"
 
     errors:
       messages:
@@ -40,6 +45,10 @@ ja:
       create_success: "タスクを登録しました"
       create_update: "タスクを更新しました"
       create_destroy: "タスクを削除しました"
+    users:
+      create_success: "ユーザを登録しました"
+      create_update: "ユーザを更新しました"
+      create_destroy: "ユーザを削除しました"
   confirmations:
     delete_task: "本当に削除してもよろしいですか？"
   date:
@@ -141,7 +150,7 @@ ja:
       other_than: は%{count}以外の値にしてください
       present: は入力しないでください
       required: を入力してください
-      taken: はすでに存在します
+      taken: はすでに使用されています
       too_long: は%{count}文字以内で入力してください
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください

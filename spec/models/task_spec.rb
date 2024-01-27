@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'タスクモデル機能', type: :model do
+  let(:user) { FactoryBot.create(:user) }
+
   describe 'バリデーションのテスト' do
 
     context 'タスクのタイトルが空文字の場合' do
@@ -19,7 +21,7 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
     context 'タスクのタイトルと説明に値が入っている場合' do
       it 'タスクを登録できる' do
-        task = Task.create(title: '本日の仕事', content: '企画書を作成する', deadline_on: "2024-01-19", priority: "高", status: "未着手")
+        task = user.tasks.build(title: '本日の仕事', content: '企画書を作成する', deadline_on: "2024-01-19", priority: "高", status: "未着手")
         expect(task).to be_valid
       end
     end
@@ -27,9 +29,9 @@ RSpec.describe 'タスクモデル機能', type: :model do
 
   describe '検索機能' do
     # テストデータを複数作成する
-    let!(:first_task) { FactoryBot.create(:first_task) }
-    let!(:second_task) { FactoryBot.create(:second_task) }
-    let!(:third_task) { FactoryBot.create(:third_task) }
+    let!(:first_task) { FactoryBot.create(:task, user: user, title: "first task", priority: "高", status: "未着手") }
+    let!(:second_task) { FactoryBot.create(:task, user: user, title: "second task", priority: "中", status: "着手中") }
+    let!(:third_task) { FactoryBot.create(:task, user: user, title: "third task", priority: "低", status: "完了") }
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索ワードを含むタスクが絞り込まれる" do
         # タイトルの検索メソッドをseach_titleとしてscopeで定義した場合のコード例

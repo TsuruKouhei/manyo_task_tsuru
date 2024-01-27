@@ -1,5 +1,7 @@
 FactoryBot.define do
+
   factory :task do
+    association :user
     sequence(:title) { |n| "task_#{n}" }
     content { "Task description" }
     created_at { Time.current }
@@ -7,6 +9,7 @@ FactoryBot.define do
   end
 
   factory :first_task, class: Task do
+    association :user
     title { 'first_task' }
     content { 'Task content for first task' }
     deadline_on { '2025-02-18' }
@@ -16,6 +19,7 @@ FactoryBot.define do
 
 
   factory :second_task, class: Task do
+    association :user
     title { 'second_task' }
     content { 'Task content for second task' }
     deadline_on { '2025-02-17' }
@@ -24,6 +28,7 @@ FactoryBot.define do
   end
 
   factory :third_task, class: Task do
+    association :user
     title { 'third_task' }
     content { 'Task content for third task' }
     deadline_on { '2025-02-16' }
