@@ -31,6 +31,11 @@ class LabelsController < ApplicationController
 
   def destroy
     @label = Label.find(params[:id])
+    
+    # 関連する TaskLabel レコードを削除
+    TaskLabel.where(label_id: @label.id).delete_all
+
+    # ラベルを削除
     @label.destroy
     redirect_to labels_path, notice: 'ラベルを削除しました'
   end

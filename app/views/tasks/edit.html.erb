@@ -36,7 +36,7 @@
 
   <div class="field">
     <%= form.label :label_ids, "ラベル" %><br>
-    <% Label.all.each do |label| %>
+    <% current_user.labels.each do |label| %>
       <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label.id, @task.labels.include?(label) %>
       <%= label.name %><br>
     <% end %>
