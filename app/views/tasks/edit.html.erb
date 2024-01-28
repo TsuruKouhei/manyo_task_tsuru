@@ -1,50 +1,53 @@
-<h1><%= t("tasks.title.edit")%></h1>
+<h1><%= t("tasks.title.edit") %></h1>
 <% if @task.errors.any? %>
-  <div id="error_explanation">
+  <div id="error_explanation" class="alert alert-danger">
     <ul>
-    <% @task.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
     </ul>
   </div>
 <% end %>
+
 <%= form_with model: @task, local: true do |form| %>
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title, t('activerecord.attributes.task.title') %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :content, t('activerecord.attributes.task.content') %>
-    <%= form.text_area :content %>
+    <%= form.text_area :content, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :deadline_on, "終了期限" %>
-    <%= form.date_field :deadline_on %>
+    <%= form.date_field :deadline_on, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :priority, "優先度" %>
-    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, include_blank: true %>
+    <%= form.select :priority, Task.priorities.keys.map { |k| [k, k] }, { include_blank: true }, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :status, "ステータス" %>
-    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
+    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, { include_blank: true }, class: 'form-control' %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :label_ids, "ラベル" %><br>
     <% current_user.labels.each do |label| %>
-      <%= form.check_box :label_ids, { multiple: true, include_hidden: false }, label.id, @task.labels.include?(label) %>
-      <%= label.name %><br>
+      <div class="form-check">
+        <%= form.check_box :label_ids, { multiple: true, include_hidden: false, class: 'form-check-input' }, label.id, @task.labels.include?(label) %>
+        <%= label.name %>
+      </div>
     <% end %>
   </div>
 
   <div class="actions">
-    <%= form.submit t("helpers.submit.update"), id: "update-task" %>
+    <%= form.submit t("helpers.submit.update"), id: "update-task", class: 'btn btn-primary' %>
   </div>
 <% end %>
 
-<%= link_to t("tasks.link.back"), root_path, id: "back" %>
+<%= link_to t("tasks.link.back"), root_path, id: "back", class: 'btn btn-secondary' %>

@@ -1,25 +1,30 @@
 <h1><%= t('tasks.title.index')%></h1>
 <%= form_with scope: :search, method: :get, local: true do |form| %>
-  <div class="field">
-    <%= form.label :title, "タイトル" %>
-    <%= form.text_field :title %>
+  <div class="form-row">
+    <div class="form-group col-md-4">
+      <div class="field">
+        <%= form.label :status, "ステータス" %>
+        <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+      <div class="field">
+        <%= form.label :title, "タイトル" %>
+        <%= form.text_field :title %>
+      </div>
+    </div>
+    <div class="form-group col-md-4">
+        <div class="field">
+        <%= form.label :label, "ラベル" %>
+        <%= form.select :label, current_user.labels.map { |l| [l.name, l.id] }, include_blank: true %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.label :status, "ステータス" %>
-    <%= form.select :status, Task.statuses.keys.map { |k| [k, k] }, include_blank: true %>
-  </div>
-
-    <div class="field">
-    <%= form.label :label, "ラベル" %>
-    <%= form.select :label, current_user.labels.map { |l| [l.name, l.id] }, include_blank: true %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "検索", id: "search_task"%>
+  <div class="actions d-flex justify-content-end">
+    <%= form.submit "検索", id: "search_task", class: 'btn btn-primary'%>
   </div>
 <% end %>
-<table>
+<table class="table w-100">
   <thead>
     <tr>
       <th><%= t('activerecord.attributes.task.title')%></th>
@@ -40,9 +45,9 @@
         <td><%= task.priority %></td>
         <td><%= task.status %></td>
         <td>
-          <%= link_to t('tasks.show'), task_path(task), class: "show-task" %>
-          <%= link_to t('tasks.edit'), edit_task_path(task), class: "edit-task" %>
-          <%= link_to t('tasks.destroy'), task_path(task), method: :delete, data: { confirm: t("confirmations.delete_task") }, class: "destroy-task" %>
+          <%= link_to t('tasks.show'), task_path(task), class: "show-task", class: 'btn btn-primary' %>
+          <%= link_to t('tasks.edit'), edit_task_path(task), class: "edit-task", class: 'btn btn-primary' %>
+          <%= link_to t('tasks.destroy'), task_path(task), method: :delete, data: { confirm: t("confirmations.delete_task") }, class: "destroy-task", class: 'btn btn-danger' %>
         </td>
       </tr>
     <% end %>

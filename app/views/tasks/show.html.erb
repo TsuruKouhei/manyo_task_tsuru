@@ -1,41 +1,47 @@
-<h1><%= t("tasks.title.show")%></h1>
+<h1 class="mb-4"><%= t("tasks.title.show") %></h1>
 
-<p>
-  <strong><%= t('activerecord.attributes.task.title')%></strong>
-  <%= @task.title %>
-</p>
+<div class="card">
+  <div class="card-body">
+    <p class="card-text">
+      <strong><%= t('activerecord.attributes.task.title') %>:</strong>
+      <%= @task.title %>
+    </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.task.content')%></strong>
-  <%= @task.content %>
-</p>
+    <p class="card-text">
+      <strong><%= t('activerecord.attributes.task.content') %>:</strong>
+      <%= @task.content %>
+    </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.task.created_at')%></strong>
-  <%= @task.created_at %>
-</p>
+    <p class="card-text">
+      <strong><%= t('activerecord.attributes.task.created_at') %>:</strong>
+      <%= @task.created_at.strftime("%Y-%m-%d %H:%M") %>
+    </p>
 
-<p>
-  <strong>終了期限</strong>
-  <%= @task.deadline_on %>
-</p>
+    <p class="card-text">
+      <strong>終了期限:</strong>
+      <%= @task.deadline_on %>
+    </p>
 
-<p>
-  <strong>優先度</strong>
-  <%= @task.priority %>
-</p>
+    <p class="card-text">
+      <strong>優先度:</strong>
+      <%= @task.priority %>
+    </p>
 
-<p>
-  <strong>ステータス</strong>
-  <%= @task.status %>
-</p>
+    <p class="card-text">
+      <strong>ステータス:</strong>
+      <%= @task.status %>
+    </p>
 
-<p>
-  <strong>ラベル</strong><br>
-  <% @task.labels.each do |label| %>
-    <%= label.name %><br>
-  <% end %>
-</p>
+    <p class="card-text">
+      <strong>ラベル:</strong><br>
+      <% @task.labels.each do |label| %>
+        <span class="badge badge-secondary"><%= label.name %></span><br>
+      <% end %>
+    </p>
+  </div>
+</div>
 
-<%= link_to t("tasks.link.edit"), edit_task_path(@task), id: "edit-task" %> |
-<%= link_to t("tasks.link.back"), root_path, id: "back" %>
+<div class="mt-3">
+  <%= link_to t("tasks.link.edit"), edit_task_path(@task), id: "edit-task", class: 'btn btn-primary' %>
+  <%= link_to t("tasks.link.back"), root_path, id: "back", class: 'btn btn-secondary ml-2' %>
+</div>

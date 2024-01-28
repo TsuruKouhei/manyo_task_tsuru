@@ -12,11 +12,11 @@
 
 <%= form_with model: @label, local: true do |form| %>
   <div class="field">
-    <%= form.label :name, "名前", id: "label-name" %>
+    <%= form.label :name, "名前", id: "label-name" %><br>
     <%= form.text_field :name %>
   </div>
 
   <div class="actions">
-    <%= form.submit "登録する", id: "submit-label" %>
+    <%= form.submit "登録する", id: "submit-label", class: 'btn btn-primary' %>
   </div>
 <% end %>

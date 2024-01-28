@@ -34,5 +34,6 @@ FactoryBot.define do
     deadline_on { '2025-02-16' }
     priority { '低' }
     status { '完了' }
+    labels { "ラベル" }
   end
 end
