@@ -11,8 +11,8 @@
   </div>
 
     <div class="field">
-    <%= form.label :label_id, "ラベル" %>
-    <%= form.select :label_id, current_user.labels.map { |l| [l.name, l.id] }, include_blank: true %>
+    <%= form.label :label, "ラベル" %>
+    <%= form.select :label, current_user.labels.map { |l| [l.name, l.id] }, include_blank: true %>
   </div>
 
   <div class="actions">

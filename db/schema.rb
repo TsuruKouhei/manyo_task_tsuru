@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2024_01_27_150917) do
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "user_id", default: 24, null: false
+    t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
