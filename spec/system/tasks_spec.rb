@@ -4,7 +4,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     # 2025年を指定されていたが、作成日を降順に設定しているため新たにタスクを作成した場合、新しいタスクが一番上に表示されるテストが実施できないため2023年に変更しています。
     let!(:first_task) { create(:task, user: user, title: 'first_task', created_at: '2023-02-18', deadline_on: "2025-02-18", priority: "中", status: "未着手") }
     let!(:second_task) { create(:task, user: user, title: 'second_task', created_at: '2023-02-17', deadline_on: "2025-02-17", priority: "高", status: "着手中") }
-    let!(:third_task) { create(:task, user: user, title: 'third_task', created_at: '2023-02-16', deadline_on: "2025-02-16", priority: "低", status: "完了", labels: "ラベル" ) }
+    let!(:third_task) { create(:task, user: user, title: 'third_task', created_at: '2023-02-16', deadline_on: "2025-02-16", priority: "低", status: "完了" ) }
     let!(:user) { FactoryBot.create(:user) }
     let!(:label) { FactoryBot.create(:label, user: user, name: 'ラベル1') }
     let!(:task_with_label) { FactoryBot.create(:task, user: user, title: 'ラベル付きタスク', labels: [label], priority: '中', status: '未着手') }
@@ -21,9 +21,11 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が作成日時の降順で表示される' do
         task_list = all('tbody tr')
-        expect(task_list[0]).to have_content 'first_task'
-        expect(task_list[1]).to have_content 'second_task'
-        expect(task_list[2]).to have_content 'third_task'
+        expect(task_list[0]).to have_content 'ラベルなしタスク'
+        expect(task_list[1]).to have_content 'ラベル付きタスク'
+        expect(task_list[2]).to have_content 'first_task'
+        expect(task_list[3]).to have_content 'second_task'
+        expect(task_list[4]).to have_content 'third_task'
       end
     end
 
@@ -47,9 +49,11 @@ RSpec.describe 'タスク管理機能', type: :system do
           # allメソッドを使って複数のテストデータの並び順を確認する
           click_link '終了期限'
           task_list = all('tbody tr')
-          expect(task_list[0]).to have_content 'third_task'
-          expect(task_list[1]).to have_content 'second_task'
-          expect(task_list[2]).to have_content 'first_task'
+          expect(task_list[0]).to have_content 'ラベルなしタスク'
+          expect(task_list[1]).to have_content 'ラベル付きタスク'
+          expect(task_list[2]).to have_content 'third_task'
+          expect(task_list[3]).to have_content 'second_task'
+          expect(task_list[4]).to have_content 'first_task'
         end
       end
 
@@ -57,10 +61,13 @@ RSpec.describe 'タスク管理機能', type: :system do
         it "優先度の高い順に並び替えられたタスク一覧が表示される" do
           # allメソッドを使って複数のテストデータの並び順を確認する
           click_link '優先度'
+          sleep 1 
           task_list = all('tbody tr')
           expect(task_list[0]).to have_content 'second_task'
-          expect(task_list[1]).to have_content 'first_task'
-          expect(task_list[2]).to have_content 'third_task'
+          expect(task_list[1]).to have_content 'ラベルなしタスク'
+          expect(task_list[2]).to have_content 'ラベル付きタスク'
+          expect(task_list[3]).to have_content 'first_task'
+          expect(task_list[4]).to have_content 'third_task'
         end
       end
     end
