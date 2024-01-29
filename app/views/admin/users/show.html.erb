@@ -1,39 +1,47 @@
 <h1>ユーザ詳細ページ</h1>
-<p>
-  <strong>名前:</strong>
-  <%= @user.name %>
-</p>
-<p>
-  <strong>メールアドレス:</strong>
-  <%= @user.email %>
-</p>
-<p>
-  <strong>管理者権限:</strong>
-  <%= @user.admin ? 'あり' : 'なし' %>
-</p>
-<table>
-  <thead>
-    <tr>
-      <th><%= t('activerecord.attributes.task.title')%></th>
-      <th><%= t('activerecord.attributes.task.content')%></th>
-      <th><%= t('activerecord.attributes.task.created_at')%></th>
-      <th><%= "終了期限" %></th>
-      <th><%= "優先度" %></th>
-      <th>ステータス</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user.tasks.each do |task| %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.content %></td>
-        <td><%= task.created_at.strftime("%Y-%m-%d %H:%M")  %></td>
-        <td><%= task.deadline_on %></td>
-        <td><%= task.priority %></td>
-        <td><%= task.status %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<%= link_to '戻る', admin_users_path, id: "back" %>
+<div class="card mb-3">
+  <div class="card-body">
+    <p class="card-text">
+      <strong>名前:</strong>
+      <%= @user.name %>
+    </p>
+    <p class="card-text">
+      <strong>メールアドレス:</strong>
+      <%= @user.email %>
+    </p>
+    <p class="card-text">
+      <strong>管理者権限:</strong>
+      <%= @user.admin ? 'あり' : 'なし' %>
+    </p>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th><%= t('activerecord.attributes.task.title') %></th>
+        <th><%= t('activerecord.attributes.task.content') %></th>
+        <th><%= t('activerecord.attributes.task.created_at') %></th>
+        <th><%= "終了期限" %></th>
+        <th><%= "優先度" %></th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @user.tasks.each do |task| %>
+        <tr>
+          <td><%= task.title %></td>
+          <td><%= task.content %></td>
+          <td><%= task.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= task.deadline_on %></td>
+          <td><%= task.priority %></td>
+          <td><%= task.status %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= link_to '戻る', admin_users_path, id: "back", class: 'btn btn-primary mt-3' %>

@@ -12,6 +12,9 @@ class TasksController < ApplicationController
     if params[:search].present?
       @tasks = @tasks.search_by_title(params[:search][:title])
       @tasks = @tasks.search_by_status(params[:search][:status])
+      if params[:search][:label].present?
+        @tasks = @tasks.joins(:labels).where(labels: { id: params[:search][:label] })
+      end
     end
 
     @tasks = @tasks.page(params[:page]).per(10)
@@ -62,7 +65,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content, :deadline_on, :priority, :status)
+      params.require(:task).permit(:title, :content, :deadline_on, :priority, :status, label_ids: [])
     end
 
     def correct_user
